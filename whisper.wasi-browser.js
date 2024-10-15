@@ -5,7 +5,7 @@ import {
   createOnMessage as __wasmCreateOnMessageForFsProxy,
 } from '@napi-rs/wasm-runtime'
 
-import __wasmUrl from './package-template.wasm32-wasi.wasm?url'
+import __wasmUrl from './whisper.wasm32-wasi.wasm?url'
 
 const __wasi = new __WASI({
   version: 'preview1',
@@ -51,6 +51,7 @@ const {
 })
 
 function __napi_rs_initialize_modules(__napiInstance) {
-  __napiInstance.exports['__napi_register__plus_100_0']?.()
+  __napiInstance.exports['__napi_register__Whisper_struct_0']?.()
+  __napiInstance.exports['__napi_register__Whisper_impl_2']?.()
 }
-export const plus100 = __napiModule.exports.plus100
+export const Whisper = __napiModule.exports.Whisper

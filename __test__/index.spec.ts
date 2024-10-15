@@ -1,8 +1,15 @@
+import { readFile } from 'node:fs/promises'
+import { join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+
 import test from 'ava'
 
-import { plus100 } from '../index.js'
+import { Whisper } from '../index.js'
+
+const GGLM_LARGE = await readFile(
+  join(fileURLToPath(import.meta.url), '..', '..', 'whisper.cpp', 'models', 'for-tests-ggml-base.en.bin'),
+)
 
 test('sync function from native code', (t) => {
-  const fixture = 42
-  t.is(plus100(fixture), fixture + 100)
+  t.notThrows(() => new Whisper(GGLM_LARGE))
 })
