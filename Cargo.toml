@@ -10,8 +10,8 @@ version = "0.0.0"
 crate-type = ["cdylib"]
 
 [dependencies]
-napi = { version = "3.0.0-alpha.13" }
-napi-derive = { version = "3.0.0-alpha.13" }
+napi = { version = "3.0.0-alpha" }
+napi-derive = { version = "3.0.0-alpha" }
 
 [build-dependencies]
 cmake  = "0.1"
