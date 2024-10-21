@@ -14,27 +14,33 @@ fn main() {
     .define("WHISPER_ALL_WARNINGS_3RD_PARTY", "OFF")
     .define("WHISPER_BUILD_TESTS", "OFF")
     .define("WHISPER_BUILD_EXAMPLES", "OFF")
+    .define("GGML_OPENMP", "OFF")
     .build_arg("-Wno-dev")
-    .very_verbose(true);
+    .very_verbose(true)
+    .pic(true);
   if target.contains("apple") {
     // Enable coreml on arm64 macOS
     if target.contains("aarch64") {
-      println!("cargo:rustc-link-lib=framework=Accelerate");
-      println!("cargo:rustc-link-lib=framework=Foundation");
       println!("cargo:rustc-link-lib=framework=CoreML");
-      println!("cargo:rustc-link-lib=static=whisper.coreml");
+      cmake_config
+        .define("GGML_ACCELERATE", "1")
+        .define("WHISPER_COREML", "ON")
+        .define("WHISPER_COREML_ALLOW_FALLBACK", "ON");
     }
-    println!("cargo:rustc-link-lib=framework=Foundation");
-    println!("cargo:rustc-link-lib=framework=Metal");
-    println!("cargo:rustc-link-lib=framework=MetalKit");
-
     cmake_config
       .define("GGML_METAL", "ON")
       .define("GGML_METAL_NDEBUG", "ON")
-      .define("GGML_METAL_EMBED_LIBRARY", "ON");
+      .define("GGML_METAL_EMBED_LIBRARY", "ON")
+      .define("GGML_HIPBLAS", "OFF");
+    println!("cargo:rustc-link-lib=framework=Accelerate");
+    println!("cargo:rustc-link-lib=framework=Foundation");
+    println!("cargo:rustc-link-lib=framework=Metal");
+    println!("cargo:rustc-link-lib=framework=MetalKit");
+    println!("cargo:rustc-link-lib=static=whisper.coreml");
+    println!("cargo:rustc-link-lib=c++");
   }
 
-  // #[cfg(feature = "rocm")]
+  #[cfg(feature = "rocm")]
   {
     use std::env;
     use std::path::PathBuf;
@@ -55,7 +61,6 @@ fn main() {
 
     cmake_config
       .define("GGML_HIPBLAS", "ON")
-      .define("GGML_OPENMP", "OFF")
       .define("CMAKE_C_COMPILER", "hipcc")
       .define("CMAKE_CXX_COMPILER", "hipcc")
       .cflag("--emit-static-lib")
@@ -81,8 +86,15 @@ fn main() {
   let output_path = cmake_config.build();
 
   println!("cargo:rustc-link-search={}/lib", output_path.display());
-  println!("cargo:rustc-link-lib=static=whisper");
+  if target.contains("apple") {
+    // libwhisper.coreml.a is in build/src
+    println!(
+      "cargo:rustc-link-search={}/build/src",
+      output_path.display()
+    );
+  }
   println!("cargo:rustc-link-lib=static=ggml");
+  println!("cargo:rustc-link-lib=static=whisper");
 
   napi_build::setup();
 }
