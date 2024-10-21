@@ -19,14 +19,11 @@ fn main() {
     .very_verbose(true)
     .pic(true);
   if target.contains("apple") {
-    // Enable coreml on arm64 macOS
-    if target.contains("aarch64") {
-      println!("cargo:rustc-link-lib=framework=CoreML");
-      cmake_config
-        .define("GGML_ACCELERATE", "1")
-        .define("WHISPER_COREML", "ON")
-        .define("WHISPER_COREML_ALLOW_FALLBACK", "ON");
-    }
+    println!("cargo:rustc-link-lib=framework=CoreML");
+    cmake_config
+      .define("GGML_ACCELERATE", "1")
+      .define("WHISPER_COREML", "ON")
+      .define("WHISPER_COREML_ALLOW_FALLBACK", "ON");
     cmake_config
       .define("GGML_METAL", "ON")
       .define("GGML_METAL_NDEBUG", "ON")
