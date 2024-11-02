@@ -1,0 +1,33 @@
+[package]
+authors = ["LongYinan <lynweklm@gmail.com>"]
+edition = "2021"
+name = "napi-whisper"
+version = "0.0.0"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[lib]
+crate-type = ["cdylib"]
+
+[dependencies]
+napi = { version = "3.0.0-alpha.19", default-features = false, features = [
+  "napi4",
+  "experimental",
+] }
+napi-derive = { version = "3.0.0-alpha.17", default-features = false, features = [
+  "type-def",
+  "strict",
+] }
+rubato = "0.16"
+symphonia = { version = "0.5", features = ["all", "opt-simd"] }
+
+[build-dependencies]
+cmake = "0.1"
+napi-build = "2"
+
+[features]
+rocm = []
+
+[profile.release]
+lto = true
+codegen-units = 1
