@@ -109,6 +109,18 @@ export declare class WhisperState {
   get nLen(): number
 }
 
+export declare enum AVLogLevel {
+  Quiet = -8,
+  Panic = 0,
+  Fatal = 8,
+  Error = 16,
+  Warning = 24,
+  Info = 32,
+  Verbose = 40,
+  Debug = 48,
+  Trace = 56
+}
+
 export declare function decodeAudio(buf: Uint8Array, filename?: string | undefined | null): Float32Array
 
 export declare function decodeAudioAsync(buf: Uint8Array, filename?: string | undefined | null, signal?: AbortSignal | undefined | null): Promise<Float32Array>
@@ -120,6 +132,8 @@ export interface Segment {
 }
 
 export declare function setupLogger(callback: (arg0: WhisperLogLevel, arg1: string) => void): void
+
+export declare function splitAudioFromVideo(filepath: string, logLevel?: AVLogLevel | undefined | null): Float32Array
 
 export declare enum WhisperAlignmentHeadsPreset {
   None = 0,

@@ -1,3 +1,6 @@
 [submodule "whisper.cpp"]
 	path = whisper.cpp
 	url = git@github.com:ggerganov/whisper.cpp.git
+[submodule "dav1d"]
+	path = dav1d
+	url = git@github.com:videolan/dav1d.git

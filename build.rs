@@ -1,9 +1,10 @@
 // Thanks to https://github.com/tazz4843/whisper-rs/blob/master/sys/build.rs
 
+use std::env;
 use std::path;
 
-fn main() {
-  let target = std::env::var("TARGET").unwrap();
+fn main() -> Result<(), Box<dyn std::error::Error>> {
+  let target = std::env::var("TARGET")?;
   let whisper_dir = path::Path::new(env!("CARGO_MANIFEST_DIR")).join("whisper.cpp");
 
   let mut cmake_config = cmake::Config::new(whisper_dir);
@@ -94,4 +95,6 @@ fn main() {
   println!("cargo:rustc-link-lib=static=whisper");
 
   napi_build::setup();
+
+  Ok(())
 }

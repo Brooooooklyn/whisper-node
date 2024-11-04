@@ -95,17 +95,21 @@ function __napi_rs_initialize_modules(__napiInstance) {
   __napiInstance.exports['__napi_register__WhisperFullParams_impl_67']?.()
   __napiInstance.exports['__napi_register__WhisperState_struct_68']?.()
   __napiInstance.exports['__napi_register__WhisperState_impl_71']?.()
-  __napiInstance.exports['__napi_register__Whisper_struct_72']?.()
-  __napiInstance.exports['__napi_register__Whisper_impl_99']?.()
-  __napiInstance.exports['__napi_register__WhisperLogLevel_100']?.()
-  __napiInstance.exports['__napi_register__setup_logger_101']?.()
+  __napiInstance.exports['__napi_register__AVLogLevel_72']?.()
+  __napiInstance.exports['__napi_register__split_audio_from_video_73']?.()
+  __napiInstance.exports['__napi_register__Whisper_struct_74']?.()
+  __napiInstance.exports['__napi_register__Whisper_impl_101']?.()
+  __napiInstance.exports['__napi_register__WhisperLogLevel_102']?.()
+  __napiInstance.exports['__napi_register__setup_logger_103']?.()
 }
 module.exports.Whisper = __napiModule.exports.Whisper
 module.exports.WhisperFullParams = __napiModule.exports.WhisperFullParams
 module.exports.WhisperState = __napiModule.exports.WhisperState
+module.exports.AVLogLevel = __napiModule.exports.AVLogLevel
 module.exports.decodeAudio = __napiModule.exports.decodeAudio
 module.exports.decodeAudioAsync = __napiModule.exports.decodeAudioAsync
 module.exports.setupLogger = __napiModule.exports.setupLogger
+module.exports.splitAudioFromVideo = __napiModule.exports.splitAudioFromVideo
 module.exports.WhisperAlignmentHeadsPreset = __napiModule.exports.WhisperAlignmentHeadsPreset
 module.exports.WhisperLogLevel = __napiModule.exports.WhisperLogLevel
 module.exports.WhisperSamplingStrategy = __napiModule.exports.WhisperSamplingStrategy
