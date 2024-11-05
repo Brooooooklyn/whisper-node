@@ -158,7 +158,7 @@ jobs:
         run: ls -R .
         shell: bash
       - name: Download model
-        run: ./scripts/download-ggml-model.sh tiny
+        run: ./scripts/download-ggml-model.js tiny
       - name: Test bindings
         run: pnpm test
   # test-linux-binding:
