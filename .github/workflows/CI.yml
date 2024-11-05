@@ -38,9 +38,14 @@ jobs:
           # - host: windows-latest
           #   build: pnpm build --target x86_64-pc-windows-msvc
           #   target: x86_64-pc-windows-msvc
-          # - host: ubuntu-latest
-          #   target: x86_64-unknown-linux-gnu
-          #   build: pnpm build --target x86_64-unknown-linux-gnu --use-napi-cross
+          - host: ubuntu-22.04
+            target: x86_64-unknown-linux-gnu
+            setup: |
+              sudo apt-get update
+              sudo apt-get install meson ninja-build -y
+            build: |
+              cargo run -p build_dav1d
+              pnpm build --target x86_64-unknown-linux-gnu
           - host: macos-latest
             target: aarch64-apple-darwin
             build: |
@@ -96,6 +101,21 @@ jobs:
         shell: bash
       - name: Install dependencies
         run: pnpm install
+      - name: Free Disk Space (Ubuntu)
+        if: matrix.settings.target == 'x86_64-unknown-linux-gnu'
+        uses: jlumbroso/free-disk-space@main
+        with:
+          android: true
+          dotnet: true
+          haskell: true
+          large-packages: true
+          docker-images: true
+          swap-storage: true
+      - name: 'Setup rocm'
+        if: matrix.settings.target == 'x86_64-unknown-linux-gnu'
+        run: node --import @oxc-node/core/register ./scripts/get-rocm.ts --rocm-version 6.2.2 --sudo
+      - uses: ilammy/setup-nasm@v1
+        if: matrix.settings.target == 'x86_64-unknown-linux-gnu'
       - name: Setup node x86
         uses: actions/setup-node@v4
         if: matrix.settings.target == 'i686-pc-windows-msvc'

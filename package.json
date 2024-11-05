@@ -42,7 +42,7 @@
   },
   "scripts": {
     "artifacts": "napi artifacts",
-    "bench": "node --import @swc-node/register/esm-register benchmark/bench.ts",
+    "bench": "node --import @oxc-node/core/register benchmark/bench.ts",
     "build": "napi build --platform --release",
     "build:debug": "napi build --platform",
     "format": "run-p format:prettier format:rs format:toml",
@@ -59,8 +59,7 @@
     "@emnapi/runtime": "^1.2.0",
     "@napi-rs/cli": "3.0.0-alpha.64",
     "@napi-rs/wasm-runtime": "^0.2.4",
-    "@swc-node/register": "^1.10.6",
-    "@swc/core": "^1.6.13",
+    "@oxc-node/core": "^0.0.15",
     "@taplo/cli": "^0.7.0",
     "@tybys/wasm-util": "^0.9.0",
     "@types/node": "^22.7.5",
