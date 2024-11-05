@@ -9,9 +9,19 @@ version = "0.0.0"
 [lib]
 crate-type = ["cdylib"]
 
+[workspace]
+default-members = ["."]
+members = [
+  ".",
+  "build_dav1d"
+]
+
 [dependencies]
+anyhow = "1"
+ffmpeg-next = { version = "7.1.0", features = ["build", "static", "build-lib-dav1d"] }
 napi = { version = "3.0.0-alpha.19", default-features = false, features = [
-  "napi4",
+  "anyhow",
+  "napi9",
   "experimental",
 ] }
 napi-derive = { version = "3.0.0-alpha.17", default-features = false, features = [
@@ -20,6 +30,17 @@ napi-derive = { version = "3.0.0-alpha.17", default-features = false, features =
 ] }
 rubato = "0.16"
 symphonia = { version = "0.5", features = ["all", "opt-simd"] }
+
+[target.'cfg(all(target_os = "macos", target_arch = "x86_64"))'.dependencies]
+symphonia = { version = "0.5", features = ["all"] }
+
+[target.'cfg(not(all(target_os = "macos", target_arch = "x86_64")))'.dependencies]
+symphonia = { version = "0.5", features = ["all", "opt-simd"] }
+
+[target.'cfg(not(target_os = "linux"))'.dependencies]
+mimalloc = "0.1"
+[target.'cfg(all(target_os = "linux", not(target_arch = "arm")))'.dependencies]
+mimalloc = { version = "0.1", features = ["local_dynamic_tls"] }
 
 [build-dependencies]
 cmake = "0.1"

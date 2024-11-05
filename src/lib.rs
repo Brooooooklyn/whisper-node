@@ -13,12 +13,20 @@ pub use audio_decode::{decode_audio, decode_audio_async};
 use context_params::WhisperContextParams;
 use full_params::{WhisperCallbackUserData, WhisperFullParams};
 pub use state::WhisperState;
+pub use video::split_audio_from_video;
 
 mod audio_decode;
 mod context_params;
 mod full_params;
 mod state;
 mod sys;
+mod video;
+
+#[cfg(not(target_arch = "arm"))]
+#[global_allocator]
+static ALLOC: mimalloc::MiMalloc = mimalloc::MiMalloc;
+
+pub(crate) const WHISPER_SAMPLE_RATE: u32 = 16000;
 
 #[module_init]
 fn init() {
@@ -241,7 +249,7 @@ impl Whisper {
       let segment = unsafe { sys::whisper_full_get_segment_text(self.inner, i) };
       let text = unsafe { std::ffi::CStr::from_ptr(segment) };
       if let Ok(s) = text.to_str() {
-        output.push_str(s.trim());
+        output.push_str(s);
       }
     }
     Ok(output)

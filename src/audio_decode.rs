@@ -13,7 +13,7 @@ use symphonia::core::io::MediaSourceStream;
 use symphonia::core::meta::MetadataOptions;
 use symphonia::core::probe::Hint;
 
-const WHISPER_SAMPLE_RATE: u32 = 16000;
+use crate::WHISPER_SAMPLE_RATE;
 
 fn decode<B: AsRef<[u8]> + Send + Sync + 'static>(
   buf: B,
