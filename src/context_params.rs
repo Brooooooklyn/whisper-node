@@ -22,25 +22,27 @@ pub enum WhisperAlignmentHeadsPreset {
 
 #[napi(object)]
 pub struct WhisperContextParams {
-  pub use_gpu: bool,
-  pub flash_attn: bool,
+  pub use_gpu: Option<bool>,
+  pub flash_attn: Option<bool>,
   // CUDA device
-  pub gpu_device: u32,
+  pub gpu_device: Option<u32>,
   /// [EXPERIMENTAL] Token-level timestamps with DTW
-  pub dtw_token_timestamps: bool,
-  pub dtw_aheads_preset: WhisperAlignmentHeadsPreset,
-  pub dtw_n_top: u32,
+  pub dtw_token_timestamps: Option<bool>,
+  pub dtw_aheads_preset: Option<WhisperAlignmentHeadsPreset>,
+  pub dtw_n_top: Option<i32>,
 }
 
 impl From<WhisperContextParams> for sys::whisper_context_params {
   fn from(params: WhisperContextParams) -> Self {
     Self {
-      use_gpu: params.use_gpu,
-      flash_attn: params.flash_attn,
-      gpu_device: params.gpu_device as i32,
-      dtw_token_timestamps: params.dtw_token_timestamps,
-      dtw_aheads_preset: params.dtw_aheads_preset as u32,
-      dtw_n_top: params.dtw_n_top as i32,
+      use_gpu: params.use_gpu.unwrap_or(true),
+      flash_attn: params.flash_attn.unwrap_or(false),
+      gpu_device: params.gpu_device.unwrap_or(0) as i32,
+      dtw_token_timestamps: params.dtw_token_timestamps.unwrap_or(false),
+      dtw_aheads_preset: params
+        .dtw_aheads_preset
+        .unwrap_or(WhisperAlignmentHeadsPreset::None) as u32,
+      dtw_n_top: params.dtw_n_top.unwrap_or(-1),
       dtw_aheads: sys::whisper_aheads {
         n_heads: 0,
         heads: std::ptr::null(),

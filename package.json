@@ -96,7 +96,7 @@
     },
     "nodeArguments": [
       "--import",
-      "@swc-node/register/esm-register"
+      "@oxc-node/core/register"
     ]
   },
   "prettier": {
