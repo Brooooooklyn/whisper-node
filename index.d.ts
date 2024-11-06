@@ -158,13 +158,13 @@ export interface WhisperBeamSearchParams {
 }
 
 export interface WhisperContextParams {
-  useGpu: boolean
-  flashAttn: boolean
-  gpuDevice: number
+  useGpu?: boolean
+  flashAttn?: boolean
+  gpuDevice?: number
   /** [EXPERIMENTAL] Token-level timestamps with DTW */
-  dtwTokenTimestamps: boolean
-  dtwAheadsPreset: WhisperAlignmentHeadsPreset
-  dtwNTop: number
+  dtwTokenTimestamps?: boolean
+  dtwAheadsPreset?: WhisperAlignmentHeadsPreset
+  dtwNTop?: number
 }
 
 export interface WhisperGreedyParams {

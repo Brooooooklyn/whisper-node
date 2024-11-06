@@ -15,12 +15,6 @@ fn main() -> std::io::Result<()> {
 
   fs::create_dir_all(&dav1d_build_dir)?;
 
-  let meson_args = "-Denable_asm=true";
-
-  // macOS x86_64 on CI doesn't support AVX
-  #[cfg(all(target_os = "macos", target_arch = "x86_64"))]
-  let meson_args = "-Denable_asm=false";
-
   Command::new("meson")
     .current_dir(&dav1d_build_dir)
     .args(&[
@@ -30,15 +24,22 @@ fn main() -> std::io::Result<()> {
       "--buildtype=release",
       "-Denable_tools=false",
       "-Denable_tests=false",
-      meson_args,
+      "-Denable_asm=true",
     ])
     .status()?;
   Command::new("ninja")
     .current_dir(&dav1d_build_dir)
     .status()?;
-  Command::new("meson")
-    .current_dir(&dav1d_build_dir)
-    .arg("install")
-    .status()?;
+  if cfg!(target_os = "linux") {
+    Command::new("sudo")
+      .current_dir(&dav1d_build_dir)
+      .args(["meson", "install"])
+      .status()?;
+  } else {
+    Command::new("meson")
+      .current_dir(&dav1d_build_dir)
+      .arg("install")
+      .status()?;
+  }
   Ok(())
 }
