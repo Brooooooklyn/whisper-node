@@ -9,6 +9,9 @@
     "url": "git+ssh://git@github.com/Brooooooklyn/whisper-node.git",
     "type": "git"
   },
+  "bin": {
+    "download-whisper-model": "./scripts/download-whisper-model.mjs"
+  },
   "license": "MIT",
   "keywords": [
     "napi-rs",
