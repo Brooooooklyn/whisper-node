@@ -1,9 +1,11 @@
 #!/usr/bin/env node
 
-const fs = require('node:fs')
-const path = require('node:path')
-const { Readable } = require('node:stream')
-const { finished } = require('node:stream/promises')
+import fs from 'node:fs'
+import { unlink } from 'node:fs/promises'
+import path from 'node:path'
+import { Readable } from 'node:stream'
+import { finished } from 'node:stream/promises'
+import { parseArgs } from 'node:util'
 
 let src = 'https://huggingface.co/ggerganov/whisper.cpp'
 let pfx = 'resolve/main/ggml'
@@ -15,8 +17,6 @@ const RESET = '\x1b[0m'
 function getScriptPath() {
   return path.dirname(process.argv[1])
 }
-
-const modelsPath = process.argv[3] || getScriptPath()
 
 // Whisper models
 const models = `tiny
@@ -59,7 +59,11 @@ function listModels() {
   console.log('\n')
 }
 
-if (process.argv.length < 3 || process.argv.length > 4) {
+const { positionals } = parseArgs({
+  allowPositionals: true,
+})
+
+if (positionals.length < 1 || positionals.length > 2) {
   console.log(`Usage: ${process.argv[1]} <model> [models_path]`)
   listModels()
   console.log('___________________________________________________________')
@@ -69,7 +73,8 @@ if (process.argv.length < 3 || process.argv.length > 4) {
   process.exit(1)
 }
 
-const model = process.argv[2]
+const model = positionals[0]
+const modelsPath = positionals[1] || getScriptPath()
 
 if (!models.split('\n').includes(model)) {
   console.log(`Invalid model: ${model}`)
@@ -103,29 +108,25 @@ if (fs.existsSync(outputFile)) {
 const file = fs.createWriteStream(outputFile)
 const url = `${src}/${pfx}-${model}.bin`
 
-fetch(url, { method: 'GET', redirect: 'follow' })
-  .then((response) => {
-    if (response.status !== 200) {
-      fs.unlink(outputFile, () => {
-        console.log(`Failed to download ggml model ${model}`)
-        console.log('Please try again later or download the original Whisper model files and convert them yourself.')
-        process.exit(1)
-      })
-      return
-    }
+try {
+  const response = await fetch(url, { method: 'GET', redirect: 'follow' })
 
-    return finished(Readable.fromWeb(response.body).pipe(file))
-  })
-  .then(() => {
-    console.log(`Done! Model '${model}' saved in '${modelsPath}/ggml-${model}.bin'`)
-    console.log('You can now use it like this:\n')
-    console.log(`const whisper = new Whisper('${modelsPath}/ggml-${model}.bin')`)
-  })
-  .catch((err) => {
-    fs.unlink(outputFile, () => {
-      console.log(`Failed to download ggml model ${model}`)
-      console.error(err)
-      console.log('Please try again later or download the original Whisper model files and convert them yourself.')
-      process.exit(1)
-    })
-  })
+  if (response.status !== 200) {
+    await unlink(outputFile)
+    console.log(`Failed to download ggml model ${model}`)
+    console.log('Please try again later or download the original Whisper model files and convert them yourself.')
+    process.exit(1)
+  }
+
+  await finished(Readable.fromWeb(response.body).pipe(file))
+
+  console.log(`Done! Model '${model}' saved in '${modelsPath}/ggml-${model}.bin'`)
+  console.log('You can now use it like this:\n')
+  console.log(`const whisper = new Whisper('${modelsPath}/ggml-${model}.bin')`)
+} catch (err) {
+  await unlink(outputFile)
+  console.log(`Failed to download ggml model ${model}`)
+  console.error(err)
+  console.log('Please try again later or download the original Whisper model files and convert them yourself.')
+  process.exit(1)
+}
