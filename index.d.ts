@@ -14,7 +14,7 @@ export declare class Whisper {
   static lang(id: number): string | null
   /** Return the short string of the specified language name (e.g. 2 -> "german"), returns nullptr if not found */
   static langFull(id: number): string | null
-  constructor(model: Uint8Array, params?: WhisperContextParams | undefined | null)
+  constructor(model: Uint8Array | string, params?: WhisperContextParams | undefined | null)
   /** mel length */
   get nLen(): number
   get nVocab(): number
@@ -92,7 +92,21 @@ export declare class WhisperFullParams {
   set suppressRegex(value: string)
   get language(): string
   set language(value: string)
+  get detectLanguage(): boolean
+  set detectLanguage(value: boolean)
+  get initialPrompt(): string
+  set initialPrompt(value: string)
   get onEncoderBegin(): (arg: Segment) => void
+  get suppressBlank(): boolean
+  set suppressBlank(value: boolean)
+  get suppressNonSpeechTokens(): boolean
+  set suppressNonSpeechTokens(value: boolean)
+  get temperature(): number
+  set temperature(value: number)
+  get maxInitialTs(): number
+  set maxInitialTs(value: number)
+  get lengthPenalty(): number
+  set lengthPenalty(value: number)
   set onEncoderBegin(callback: (arg: WhisperState) => void)
   get onProgress(): (arg: number) => void
   set onProgress(callback: (arg: number) => void)

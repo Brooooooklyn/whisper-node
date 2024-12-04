@@ -360,6 +360,13 @@ extern "C" {
     samples: *const c_float,
     n_samples: c_int,
   ) -> c_int;
+  pub fn whisper_full_with_state(
+    ctx: *mut whisper_context,
+    state: *mut whisper_state,
+    params: whisper_full_params,
+    samples: *const c_float,
+    n_samples: c_int,
+  ) -> c_int;
   pub fn whisper_init_state(ctx: *mut whisper_context) -> *mut whisper_state;
 
   pub fn whisper_free(ctx: *mut whisper_context);
