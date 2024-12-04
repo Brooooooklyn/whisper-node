@@ -100,6 +100,7 @@ pub struct WhisperFullParams {
   pub(crate) inner: whisper_full_params,
   suppress_regex: String,
   language: Option<CString>,
+  initial_prompt: Option<CString>,
   pub(crate) callback_user_data: *mut WhisperCallbackUserData,
 }
 
@@ -160,6 +161,7 @@ impl WhisperFullParams {
       inner: params,
       suppress_regex: String::new(),
       language: None,
+      initial_prompt: None,
       callback_user_data: callback_user_data_ptr,
     })
   }
@@ -408,8 +410,80 @@ impl WhisperFullParams {
   }
 
   #[napi(getter)]
+  pub fn get_detect_language(&self) -> bool {
+    self.inner.detect_language
+  }
+
+  #[napi(setter)]
+  pub fn set_detect_language(&mut self, value: bool) {
+    self.inner.detect_language = value;
+  }
+
+  #[napi(getter)]
+  pub fn get_initial_prompt(&self) -> RawCString {
+    RawCString::new(self.inner.initial_prompt, NAPI_AUTO_LENGTH)
+  }
+
+  #[napi(setter)]
+  pub fn set_initial_prompt(&mut self, value: String) {
+    let c_value = CString::new(value.as_str()).unwrap();
+    self.inner.initial_prompt = c_value.as_ptr().cast();
+    self.initial_prompt = Some(c_value);
+  }
+
+  #[napi(getter)]
   pub fn get_on_encoder_begin(&self, this: This) -> Result<Function<Segment, ()>> {
     this.get_named_property_unchecked(ON_ENCODER_BEGIN_CB_NAME)
+  }
+
+  #[napi(getter)]
+  pub fn get_suppress_blank(&self) -> bool {
+    self.inner.suppress_blank
+  }
+
+  #[napi(setter)]
+  pub fn set_suppress_blank(&mut self, value: bool) {
+    self.inner.suppress_blank = value;
+  }
+
+  #[napi(getter)]
+  pub fn get_suppress_non_speech_tokens(&self) -> bool {
+    self.inner.suppress_non_speech_tokens
+  }
+
+  #[napi(setter)]
+  pub fn set_suppress_non_speech_tokens(&mut self, value: bool) {
+    self.inner.suppress_non_speech_tokens = value;
+  }
+
+  #[napi(getter)]
+  pub fn get_temperature(&self) -> f64 {
+    self.inner.temperature as f64
+  }
+
+  #[napi(setter)]
+  pub fn set_temperature(&mut self, value: f64) {
+    self.inner.temperature = value as f32;
+  }
+
+  #[napi(getter)]
+  pub fn get_max_initial_ts(&self) -> f64 {
+    self.inner.max_initial_ts as f64
+  }
+
+  #[napi(setter)]
+  pub fn set_max_initial_ts(&mut self, value: f64) {
+    self.inner.max_initial_ts = value as f32;
+  }
+
+  #[napi(getter)]
+  pub fn get_length_penalty(&self) -> f64 {
+    self.inner.length_penalty as f64
+  }
+
+  #[napi(setter)]
+  pub fn set_length_penalty(&mut self, value: f64) {
+    self.inner.length_penalty = value as f32;
   }
 
   #[napi(setter, return_if_invalid)]

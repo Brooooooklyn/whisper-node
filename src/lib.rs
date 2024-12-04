@@ -1,6 +1,6 @@
 #![deny(clippy::all)]
 
-use std::{ffi::CString, ptr, sync::atomic::Ordering};
+use std::{borrow::Cow, ffi::CString, fs::File, io::Read, ptr, sync::atomic::Ordering};
 
 use napi::{
   bindgen_prelude::*,
@@ -86,7 +86,16 @@ impl Whisper {
   }
 
   #[napi(constructor)]
-  pub fn new(model: &[u8], params: Option<WhisperContextParams>) -> Result<Self> {
+  pub fn new(model: Either<&[u8], String>, params: Option<WhisperContextParams>) -> Result<Self> {
+    let model = match model {
+      Either::A(buf) => Cow::Borrowed(buf),
+      Either::B(filepath) => {
+        let mut file = File::open(filepath)?;
+        let mut buf = Vec::with_capacity(file.metadata()?.len() as usize);
+        file.read_to_end(&mut buf)?;
+        Cow::Owned(buf)
+      }
+    };
     let inner = unsafe {
       sys::whisper_init_from_buffer_with_params(
         model.as_ptr().cast_mut().cast(),
