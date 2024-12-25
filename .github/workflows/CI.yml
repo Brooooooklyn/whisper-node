@@ -113,7 +113,9 @@ jobs:
           swap-storage: true
       - name: 'Setup rocm'
         if: matrix.settings.target == 'x86_64-unknown-linux-gnu'
-        run: node --import @oxc-node/core/register ./scripts/get-rocm.ts --rocm-version 6.2.2 --sudo
+        run: |
+          pnpm tsc
+          node ./scripts/get-rocm.mjs --rocm-version 6.3.1 --sudo
       - name: Install LLVM and Clang
         if: matrix.settings.target == 'x86_64-unknown-linux-gnu'
         uses: KyleMayes/install-llvm-action@v2
