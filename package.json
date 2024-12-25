@@ -10,7 +10,7 @@
     "type": "git"
   },
   "bin": {
-    "download-whisper-model": "./scripts/download-whisper-model.mjs"
+    "download-whisper-model": "./scripts/download-ggml-model.mjs"
   },
   "license": "MIT",
   "keywords": [
@@ -25,7 +25,7 @@
     "index.d.ts",
     "index.js",
     "browser.js",
-    "scripts/download-whisper-model.mjs"
+    "scripts/download-ggml-model.mjs"
   ],
   "napi": {
     "binaryName": "whisper",
