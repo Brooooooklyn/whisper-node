@@ -24,7 +24,8 @@
   "files": [
     "index.d.ts",
     "index.js",
-    "browser.js"
+    "browser.js",
+    "scripts/download-whisper-model.mjs"
   ],
   "napi": {
     "binaryName": "whisper",
