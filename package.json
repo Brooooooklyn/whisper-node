@@ -60,9 +60,9 @@
   "devDependencies": {
     "@emnapi/core": "^1.2.0",
     "@emnapi/runtime": "^1.2.0",
-    "@napi-rs/cli": "3.0.0-alpha.67",
+    "@napi-rs/cli": "3.0.0-alpha.68",
     "@napi-rs/wasm-runtime": "^0.2.4",
-    "@oxc-node/core": "^0.0.17",
+    "@oxc-node/core": "^0.0.19",
     "@taplo/cli": "^0.7.0",
     "@tybys/wasm-util": "^0.9.0",
     "@types/node": "^22.7.5",
