@@ -60,7 +60,7 @@
   "devDependencies": {
     "@emnapi/core": "^1.2.0",
     "@emnapi/runtime": "^1.2.0",
-    "@napi-rs/cli": "3.0.0-alpha.70",
+    "@napi-rs/cli": "3.0.0-alpha.73",
     "@napi-rs/wasm-runtime": "^0.2.4",
     "@oxc-node/core": "^0.0.19",
     "@taplo/cli": "^0.7.0",
@@ -109,5 +109,5 @@
     "singleQuote": true,
     "arrowParens": "always"
   },
-  "packageManager": "pnpm@10.3.0"
+  "packageManager": "pnpm@10.5.2"
 }
