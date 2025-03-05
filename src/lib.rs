@@ -4,10 +4,9 @@ use std::{borrow::Cow, ffi::CString, fs::File, io::Read, ptr, sync::atomic::Orde
 
 use napi::{
   bindgen_prelude::*,
-  module_init,
   threadsafe_function::{ThreadsafeFunction, ThreadsafeFunctionCallMode},
 };
-use napi_derive::napi;
+use napi_derive::{module_init, napi};
 
 pub use audio_decode::{decode_audio, decode_audio_async};
 use context_params::WhisperContextParams;
