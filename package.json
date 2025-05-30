@@ -60,7 +60,7 @@
   "devDependencies": {
     "@emnapi/core": "^1.2.0",
     "@emnapi/runtime": "^1.2.0",
-    "@napi-rs/cli": "3.0.0-alpha.78",
+    "@napi-rs/cli": "3.0.0-alpha.81",
     "@napi-rs/wasm-runtime": "^0.2.4",
     "@oxc-node/core": "^0.0.27",
     "@taplo/cli": "^0.7.0",
@@ -72,7 +72,7 @@
     "husky": "^9.0.11",
     "lint-staged": "^16.0.0",
     "npm-run-all2": "^8.0.0",
-    "oxlint": "^0.16.0",
+    "oxlint": "^0.17.0",
     "prettier": "^3.3.3",
     "tinybench": "^4.0.0",
     "typescript": "^5.5.3"
@@ -109,5 +109,5 @@
     "singleQuote": true,
     "arrowParens": "always"
   },
-  "packageManager": "pnpm@10.10.0"
+  "packageManager": "pnpm@10.11.0"
 }
