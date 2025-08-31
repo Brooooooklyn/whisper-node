@@ -18,7 +18,7 @@ members = [
 
 [dependencies]
 anyhow = "1"
-ffmpeg-next = { version = "7.1.0", features = ["build", "static", "build-lib-dav1d"] }
+ffmpeg-next = { version = "8.0.0", features = ["build", "static", "build-lib-dav1d"] }
 napi = { version = "3.0.0-alpha.19", default-features = false, features = [
   "anyhow",
   "napi9",
