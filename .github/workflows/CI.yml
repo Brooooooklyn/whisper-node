@@ -58,7 +58,7 @@ jobs:
     name: stable - ${{ matrix.settings.target }} - node@20
     runs-on: ${{ matrix.settings.host }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
         with:
           submodules: true
       - name: setup pnpm
@@ -171,7 +171,7 @@ jobs:
           - '20'
     runs-on: ${{ matrix.settings.host }}
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: setup pnpm
         uses: pnpm/action-setup@v4
       - name: Setup node
@@ -293,7 +293,7 @@ jobs:
       - test-macOS-windows-binding
       # - test-linux-binding
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v6
       - name: setup pnpm
         uses: pnpm/action-setup@v4
       - name: Setup node
