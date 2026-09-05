@@ -37,7 +37,7 @@ importers:
         version: 6.2.0
       chalk:
         specifier: ^5.3.0
-        version: 5.3.0
+        version: 5.4.1
       emnapi:
         specifier: ^1.2.0
         version: 1.2.0
@@ -57,8 +57,8 @@ importers:
         specifier: ^3.3.3
         version: 3.3.3
       tinybench:
-        specifier: ^4.0.0
-        version: 4.0.1
+        specifier: ^6.0.0
+        version: 6.1.6
       typescript:
         specifier: ^5.5.3
         version: 5.5.3
@@ -847,10 +847,6 @@ packages:
     resolution: {integrity: sha512-JPypkxsB10s9QOWwa6zwPzqE1Md3vqpPc+cai4sAecuCsRyAtAl/pMyhPlMbT/xtPnm2dznJZYRLui57qiRhaQ==}
     engines: {node: '>=16'}
 
-  chalk@5.3.0:
-    resolution: {integrity: sha512-dLitG79d+GV1Nb/VYcCDFivJeK1hiukt9QjRNVOsUtTy1rR1YJsmpGGTZ3qJos+uw7WmWF4wUwBd9jxjocFC2w==}
-    engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
-
   chalk@5.4.1:
     resolution: {integrity: sha512-zgVZuo2WcZgfUEmsn6eO3kINexW8RAE4maiQ8QNs8CtpPCSyMiYsULR3HQYkm3w8FIA3SberyMJMSldGsW+U3w==}
     engines: {node: ^12.17.0 || ^14.13 || >=16.0.0}
@@ -1076,7 +1072,7 @@ packages:
 
   glob@7.2.3:
     resolution: {integrity: sha512-nFR0zLpU2YCaRxwoCJvL6UvCH2JFyFVIvwTLsIf21AuHlMskA1hhTdk+LlYJtOlYt9v6dvszD2BGRqBL+iQK9Q==}
-    deprecated: Glob versions prior to v9 are no longer supported
+    deprecated: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   globby@14.0.2:
     resolution: {integrity: sha512-s3Fq41ZVh7vbbe2PN3nrW7yC7U7MFVc5c98/iTl9c2GawNMKx/J648KQRW6WKkuU8GIbbh2IXfIRQjOZnXcTnw==}
@@ -1520,6 +1516,7 @@ packages:
   tar@6.2.0:
     resolution: {integrity: sha512-/Wo7DcT0u5HUV486xg675HtjNd3BXZ6xDbzsCUZPt5iw8bTQ63bP0Raut3mvro9u+CUyq7YQd8Cx55fsZXxqLQ==}
     engines: {node: '>=10'}
+    deprecated: Old versions of tar are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
 
   temp-dir@3.0.0:
     resolution: {integrity: sha512-nHc6S/bwIilKHNRgK/3jlhDoIHcp45YgyiwcAk46Tr0LfEqGBVpmiAyuiuxeVE44m3mXnEeVhaipLOEWmH+Njw==}
@@ -1529,9 +1526,9 @@ packages:
     resolution: {integrity: sha512-TIsDdtKo6+XrPtiTm1ssmMngN1sAhyKnTO2kunQWqNPWIVvCm15Wmw4SWInwTVgJ5u/Tr04+8Ei9TNcw4x4ONA==}
     engines: {node: '>=4'}
 
-  tinybench@4.0.1:
-    resolution: {integrity: sha512-Nb1srn7dvzkVx0J5h1vq8f48e3TIcbrS7e/UfAI/cDSef/n8yLh4zsAEsFkfpw6auTY+ZaspEvam/xs8nMnotQ==}
-    engines: {node: '>=18.0.0'}
+  tinybench@6.1.6:
+    resolution: {integrity: sha512-qEHpSqUC/KkD4rypubEZ/gSENbH6x4E8d8UM5aBndJhRjTW3sPW4jmS5C1/wHhMFMj040jgJl2XvQOYdZDgKkA==}
+    engines: {node: '>=20.0.0'}
 
   tmp@0.0.33:
     resolution: {integrity: sha512-jRCJlojKnZ3addtTOjdIqoRuPEKBvNXcGYqzO6zWZX8KfKEpnGY5jfggJQ3EjKuu8D4bJRr0y+cYJFmYbImXGw==}
@@ -2306,7 +2303,7 @@ snapshots:
       arrify: 3.0.0
       callsites: 4.2.0
       cbor: 9.0.2
-      chalk: 5.3.0
+      chalk: 5.4.1
       chunkd: 2.0.1
       ci-info: 4.0.0
       ci-parallel-vars: 1.0.1
@@ -2370,8 +2367,6 @@ snapshots:
   cbor@9.0.2:
     dependencies:
       nofilter: 3.1.0
-
-  chalk@5.3.0: {}
 
   chalk@5.4.1: {}
 
@@ -2952,7 +2947,7 @@ snapshots:
 
   time-zone@1.0.0: {}
 
-  tinybench@4.0.1: {}
+  tinybench@6.1.6: {}
 
   tmp@0.0.33:
     dependencies:
