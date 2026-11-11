@@ -29,13 +29,13 @@ napi-derive = { version = "3.0.0-alpha.17", default-features = false, features =
   "strict",
 ] }
 rubato = "0.16"
-symphonia = { version = "0.5", features = ["all", "opt-simd"] }
+symphonia = { version = "0.6", features = ["all", "opt-simd"] }
 
 [target.'cfg(all(target_os = "macos", target_arch = "x86_64"))'.dependencies]
-symphonia = { version = "0.5", features = ["all"] }
+symphonia = { version = "0.6", features = ["all"] }
 
 [target.'cfg(not(all(target_os = "macos", target_arch = "x86_64")))'.dependencies]
-symphonia = { version = "0.5", features = ["all", "opt-simd"] }
+symphonia = { version = "0.6", features = ["all", "opt-simd"] }
 
 [target.'cfg(not(target_os = "linux"))'.dependencies]
 mimalloc = "0.1"
